@@ -3,6 +3,10 @@ source 'https://rubygems.org'
 # Ruby Version
 # ruby "2.2.1"
 
+#BCrypt
+gem 'bcrypt', '~> 3.1.7'
+
+
 # Adding Sinatra Drivers
 gem 'sinatra'
 gem 'sinatra-contrib'
@@ -17,12 +21,14 @@ gem 'sinatra-activerecord'
 
 # Adding Database elements
 gem 'pg'
+gem 'byebug'
 
 # Adding rake for management
 gem 'rake'
 
 # Adding rspec for running unit testing
 gem 'rspec'
+
 
 group :development, :test do
 	# Adding shotgun for local web hosting
