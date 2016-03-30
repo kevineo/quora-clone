@@ -1,0 +1,18 @@
+<h2> Hello  <%= current_user.name%> </h2>
+<h3> Here are your questions man...  <h3>
+
+<div>
+<ol>	
+		<% current_user.questions.find_each do |list| %>
+			<li>
+				<h2> <%= list.question %></h2>
+			</li>
+				<h3> <%= list.description %></h3>
+				<form method=post action=/answer>
+					<input type=text placeholder="Your Answer" name="answer[question]"><br>
+					<input type=submit value="Submit Your Answer">
+				</form>
+		<%end%>
+</ol>
+</div>
+

@@ -1,5 +1,9 @@
 get '/' do
-  erb :"static/index"
+	if logged_in?
+		redirect '/users/:id'
+	else
+  	erb :"static/index"
+  end
 end
 
 get '/signup' do
@@ -14,12 +18,18 @@ get '/success' do
 	erb :"/success"
 end
 
+get '/users/:id' do
+	erb :"static/profile"
+end
+
+
 
 post '/signup' do
 	user = User.new(params[:user])
-	user.password = params[:user][:password]
+	# user.name = params[:user][:name]
+	# user.password = params[:user][:password]
 	if user.save
-	session[:current_user_id] = user_id
+	session[:current_user_id] = user.id
 	flash[:notice] = "You signed up successfully"
     flash[:color] = "valid"
     redirect '/success'
@@ -37,15 +47,22 @@ post '/login' do
 	user = User.find_by(email: params[:user][:email])
 	if user.authenticate(params[:user][:password])
 		session[:current_user_id] = user.id
-		redirect '/success'
+		redirect '/users/:id'
 	else
-		return false
+		redirect '/signup'
 	end
 
 end
 
 post '/logout' do
 	#authentication when user logouts
-	session[:user_id] = nil
+	session[:current_user_id] = nil
+	redirect '/login'
 end
+
+post '/users/:id' do
+	erb :"static/profile"
+end
+
+
 

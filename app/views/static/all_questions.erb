@@ -1,0 +1,18 @@
+
+<h3> All Questions...  <h3>
+		<% questions = Question.all %>
+		<% questions.each do |list| %>
+						<h2> <%= list.question %></h2>
+						<h3> <%= list.description %></h3>
+							<form method=post action=/answer>
+								<input type=text placeholder="Your Answer" name="answer[answer]"><br>
+								<input type=submit value="Submit Your Answer">
+							</form>
+						<%end%>
+						<div>
+							<p> Top Answer: </p>
+							<% answers = Answer.all %>
+							<% answers.each do |list| %>
+								<p> <%=list.answer %> </p>
+							<%end%>
+						</div>

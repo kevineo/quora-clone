@@ -3,14 +3,11 @@ class User < ActiveRecord::Base
 	# validates :email, format: {with: /[^@\s]+@[^@\s]+[.]+[^@\s]{2,}/i}
 	# validates :password, length: {:minimum => 8 }
 	validates :email, presence: true, uniqueness: true
+	# users.password_hash in the database is a :string
 
-	# users.password_hash in the database is a :string	
-
-	def current_user
-		if session[:current_user_id]
-		@current_user ||= User.find_by(session[:current_user_id])
-		end
-	end
+	#User can have multiple questions
+	has_many :questions
+	has_many :answers
 
 
 end
@@ -18,7 +15,11 @@ end
 
 	# include BCrypt
 
-
+	# def current_user
+	# 	if session[:current_user_id]
+	# 	@current_user ||= User.find_by(session[:current_user_id])
+	# 	end
+	# end
 
 	# def create
 	# 	@user = User.new(params[:user])
